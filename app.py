@@ -89,10 +89,13 @@ def segmentation(cropped_image, seg_model, device):
 
 # Загрузка моделей
 try:
-    # YOLO (загружен в Replit)
+    # YOLO
+    if not os.path.exists('best.pt'):
+        st.write("Загрузка модели YOLO...")
+        gdown.download('https://drive.google.com/file/d/1UjMSJR6f-PrfToiM5jJ_fSawLZoD33oX/view?usp=sharing', 'best.pt', quiet=False)
     yolo_model = YOLO('best.pt')
 
-    # DeepLabV3 (скачивается с Google Drive)
+    # DeepLabV3
     if not os.path.exists('best_model_deeplabv3_26.04.25.pth'):
         st.write("Загрузка модели DeepLabV3...")
         gdown.download('https://drive.google.com/uc?id=148g9Qeax_j2mfKxnALZTTF_umBJL586U', 'best_model_deeplabv3_26.04.25.pth', quiet=False)
@@ -101,7 +104,10 @@ try:
     seg_model.load_state_dict(torch.load('best_model_deeplabv3_26.04.25.pth', map_location=device))
     seg_model.to(device)
 
-    # ResNet (загружен в Replit)
+    # ResNet
+    if not os.path.exists('best_f1_resnet_3.05.25.pth'):
+        st.write("Загрузка модели ResNet...")
+        gdown.download('https://drive.google.com/file/d/1IaehbxC40PF4UgxJtRDMc0EEhMZXYygf/view?usp=sharing', 'best_f1_resnet_3.05.25.pth', quiet=False)
     class_model = ResNetFeatMask(num_classes=2, pretrained_backbone=True).to(device)
     class_model.load_state_dict(torch.load('best_f1_resnet_3.05.25.pth', map_location=device))
     class_model.to(device)
