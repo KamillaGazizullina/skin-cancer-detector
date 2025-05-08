@@ -90,29 +90,44 @@ def segmentation(cropped_image, seg_model, device):
 # Загрузка моделей
 try:
     # YOLO
-    if not os.path.exists('best.pt'):
+    yolo_file = 'best.pt'
+    if not os.path.exists(yolo_file):
         st.write("Загрузка модели YOLO...")
-        gdown.download('https://drive.google.com/file/d/1UjMSJR6f-PrfToiM5jJ_fSawLZoD33oX/view?usp=sharing', 'best.pt', quiet=False)
-    yolo_model = YOLO('best.pt')
+        gdown.download('https://drive.google.com/uc?id=1UjMSJR6f-PrfToiM5jJ_fSawLZoD33oX', yolo_file, quiet=False, fuzzy=True)
+    try:
+        yolo_model = YOLO(yolo_file)
+    except Exception as e:
+        st.error(f"Ошибка загрузки YOLO модели: {e}")
+        st.stop()
 
     # DeepLabV3
-    if not os.path.exists('best_model_deeplabv3_26.04.25.pth'):
+    deeplab_file = 'best_model_deeplabv3_26.04.25.pth'
+    if not os.path.exists(deeplab_file):
         st.write("Загрузка модели DeepLabV3...")
-        gdown.download('https://drive.google.com/uc?id=148g9Qeax_j2mfKxnALZTTF_umBJL586U', 'best_model_deeplabv3_26.04.25.pth', quiet=False)
-    seg_model = models.segmentation.deeplabv3_resnet101(pretrained=True)
-    seg_model.classifier[4] = nn.Conv2d(256, 1, kernel_size=1)
-    seg_model.load_state_dict(torch.load('best_model_deeplabv3_26.04.25.pth', map_location=device))
-    seg_model.to(device)
+        gdown.download('https://drive.google.com/uc?id=148g9Qeax_j2mfKxnALZTTF_umBJL586U', deeplab_file, quiet=False, fuzzy=True)
+    try:
+        seg_model = models.segmentation.deeplabv3_resnet101(pretrained=True)
+        seg_model.classifier[4] = nn.Conv2d(256, 1, kernel_size=1)
+        seg_model.load_state_dict(torch.load(deeplab_file, map_location=device))
+        seg_model.to(device)
+    except Exception as e:
+        st.error(f"Ошибка загрузки DeepLabV3 модели: {e}")
+        st.stop()
 
     # ResNet
-    if not os.path.exists('best_f1_resnet_3.05.25.pth'):
+    resnet_file = 'best_f1_resnet_3.05.25.pth'
+    if not os.path.exists(resnet_file):
         st.write("Загрузка модели ResNet...")
-        gdown.download('https://drive.google.com/file/d/1IaehbxC40PF4UgxJtRDMc0EEhMZXYygf/view?usp=sharing', 'best_f1_resnet_3.05.25.pth', quiet=False)
-    class_model = ResNetFeatMask(num_classes=2, pretrained_backbone=True).to(device)
-    class_model.load_state_dict(torch.load('best_f1_resnet_3.05.25.pth', map_location=device))
-    class_model.to(device)
+        gdown.download('https://drive.google.com/uc?id=1IaehbxC40PF4UgxJtRDMc0EEhMZXYygf', resnet_file, quiet=False, fuzzy=True)
+    try:
+        class_model = ResNetFeatMask(num_classes=2, pretrained_backbone=True).to(device)
+        class_model.load_state_dict(torch.load(resnet_file, map_location=device))
+        class_model.to(device)
+    except Exception as e:
+        st.error(f"Ошибка загрузки ResNet модели: {e}")
+        st.stop()
 except Exception as e:
-    st.error(f"Ошибка загрузки моделей: {e}")
+    st.error(f"Общая ошибка загрузки моделей: {e}")
     st.stop()
 
 # Трансформации для классификации
@@ -137,7 +152,7 @@ if uploaded_file is not None:
         image_np = np.array(image)
         if image_np.shape[2] == 4:  # Если есть альфа-канал
             image_np = image_np[:, :, :3]
-        image_np = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
+        image_np = cv2.certColor(image_np, cv2.COLOR_RGB2BGR)
         st.image(image, caption="Загруженное фото", use_column_width=True)
 
         # Детекция
