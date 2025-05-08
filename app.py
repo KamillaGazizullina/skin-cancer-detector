@@ -152,7 +152,7 @@ if uploaded_file is not None:
         image_np = np.array(image)
         if image_np.shape[2] == 4:  # Если есть альфа-канал
             image_np = image_np[:, :, :3]
-        image_np = cv2.certColor(image_np, cv2.COLOR_RGB2BGR)
+        image_np = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
         st.image(image, caption="Загруженное фото", use_column_width=True)
 
         # Детекция
