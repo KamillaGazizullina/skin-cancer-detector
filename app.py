@@ -153,7 +153,7 @@ if uploaded_file is not None:
         if image_np.shape[2] == 4:  # Если есть альфа-канал
             image_np = image_np[:, :, :3]
         image_np = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
-        st.image(image, caption="Загруженное фото", use_column_width=True)
+        st.image(image, caption="Загруженное фото", use_container_width=True)
 
         # Детекция
         box, _ = detection(image_np, yolo_model)
@@ -163,16 +163,16 @@ if uploaded_file is not None:
 
         # Обрезка
         cropped = crop_image(image_np, box)
-        st.image(cropped, caption="Обрезанное изображение", use_column_width=True)
+        st.image(cropped, caption="Обрезанное изображение", use_container_width=True)
 
         # Удаление волос
         hair_removed = dullrazor(cropped)
         hair_removed_rgb = cv2.cvtColor(hair_removed, cv2.COLOR_BGR2RGB)
-        st.image(hair_removed_rgb, caption="Изображение без волос", use_column_width=True)
+        st.image(hair_removed_rgb, caption="Изображение без волос", use_container_width=True)
 
         # Сегментация
         mask = segmentation(hair_removed, seg_model, device)
-        st.image(mask * 255, caption="Маска родинки", use_column_width=True)
+        st.image(mask * 255, caption="Маска родинки", use_container_width=True)
 
         # Классификация
         pil_img = Image.fromarray(hair_removed_rgb)
