@@ -1,15 +1,24 @@
 import streamlit as st
+import sys
 import torch
 import torch.nn as nn
 import torchvision.models as models
 import torchvision.transforms as transforms
 from PIL import Image
 import numpy as np
-import cv2
-from ultralytics import YOLO
-import torch.nn.functional as F
 import gdown
 import os
+import torch.nn.functional as F
+from ultralytics import YOLO
+
+# Отладка импорта cv2
+st.write(f"Python version: {sys.version}")
+try:
+    import cv2
+    st.write("OpenCV успешно импортирован")
+except ImportError as e:
+    st.error(f"Ошибка импорта OpenCV: {e}")
+    st.stop()
 
 # Кастомные стили (дизайн)
 st.markdown("""
