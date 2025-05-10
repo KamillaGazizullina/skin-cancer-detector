@@ -50,7 +50,7 @@ st.markdown("""
 # Логотип и заголовок
 col1, col2 = st.columns([1, 3])
 with col1:
-    st.image("logo.png", width=150)  # Увеличили до 150px
+    st.image("logo.png", width=250)  # Увеличили до 250px
 with col2:
     st.markdown('<h3 style="color: #FF6B00; font-family: Roboto, sans-serif;"> ИИ-ассистент для скрининга рака кожи</h3>', unsafe_allow_html=True)
 
