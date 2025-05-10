@@ -66,6 +66,9 @@ NevoScan помогает проводить предварительный ск
 # Инструкция
 st.markdown('<div class="instructions">Загрузите фото кожи для анализа (JPG или PNG). Убедитесь, что родинка хорошо видна.</div>', unsafe_allow_html=True)
 
+# Определение устройства
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
 # Класс ResNetFeatMask
 class ResNetFeatMask(nn.Module):
     def __init__(self, num_classes=2, pretrained_backbone=True):
