@@ -52,15 +52,14 @@ col1, col2 = st.columns([1, 3])
 with col1:
     st.image("logo.png", width=250)
 with col2:
-    st.markdown('<h2 style="color: #FF6B00; font-family: Roboto, sans-serif;"> ИИ-ассистент для скрининга рака кожи</h2>', unsafe_allow_html=True)
+    st.markdown('<h4 style="color: #FF6B00; font-family: Roboto, sans-serif;"> ИИ-ассистент для скрининга рака кожи</h4>', unsafe_allow_html=True)
 
 # Разделитель
 st.markdown("---")
 
 # Описание
 st.markdown("""
-NevoScan помогает проводить предварительный скрининг кожных новообразований. 
-Загрузите изображение, и наш ИИ проанализирует его на предмет признаков злокачественности.
+ Загрузите изображение, и наш ИИ проанализирует его на предмет признаков злокачественности.
 """)
 
 # Инструкция
