@@ -35,6 +35,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Логотип и заголовок
+import os
+if os.path.exists("logo.png"):
+    st.write("Файл logo.png найден")
+else:
+    st.error("Файл logo.png НЕ найден")
 st.markdown("""
     <div class="header-container">
         <img src="logo.png" class="logo">
