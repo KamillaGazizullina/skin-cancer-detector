@@ -20,17 +20,28 @@ except ImportError as e:
     st.error(f"Ошибка импорта OpenCV: {e}")
     st.stop()
 
-# Кастомные стили (дизайн)
+# Кастомные стили
 st.markdown("""
     <style>
-    .title { font-size: 32px; color: #2E86C1; text-align: center; }
-    .result { font-size: 24px; font-weight: bold; color: #E74C3C; }
-    .instructions { font-size: 16px; color: #34495E; }
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+    .header-container { display: flex; align-items: center; margin-bottom: 20px; }
+    .logo { width: 100px; height: auto; margin-right: 20px; }
+    .title { font-size: 24px; color: #2E86C1; font-family: 'Roboto', sans-serif; }
+    .result { font-size: 24px; font-weight: bold; color: #E74C3C; font-family: 'Roboto', sans-serif; }
+    .instructions { font-size: 16px; color: #34495E; font-family: 'Roboto', sans-serif; }
+    .stButton>button { background-color: #2E86C1; color: white; border-radius: 8px; padding: 10px; }
+    .stFileUploader { border: 2px dashed #2E86C1; border-radius: 5px; }
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="title">Распознавание рака кожи</div>', unsafe_allow_html=True)
-st.markdown('<div class="instructions">Загрузите фото кожи для анализа. Поддерживаются форматы JPG и PNG.</div>', unsafe_allow_html=True)
+# Логотип и заголовок
+st.markdown("""
+    <div class="header-container">
+        <img src="logo.png" class="logo">
+        <div class="title">NevoScan</div>
+    </div>
+""", unsafe_allow_html=True)
+st.markdown('<div class="instructions">Загрузите фото кожи для анализа (JPG или PNG). Убедитесь, что родинка хорошо видна.</div>', unsafe_allow_html=True)
 
 # Определение устройства
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
