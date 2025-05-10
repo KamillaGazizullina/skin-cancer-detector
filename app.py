@@ -26,28 +26,45 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
     .header-container { display: flex; align-items: center; margin-bottom: 20px; }
     .logo { width: 100px; height: auto; margin-right: 20px; }
-    .title { font-size: 24px; color: #2E86C1; font-family: 'Roboto', sans-serif; }
-    .result { font-size: 24px; font-weight: bold; color: #E74C3C; font-family: 'Roboto', sans-serif; }
-    .instructions { font-size: 16px; color: #34495E; font-family: 'Roboto', sans-serif; }
-    .stButton>button { background-color: #2E86C1; color: white; border-radius: 8px; padding: 10px; }
-    .stFileUploader { border: 2px dashed #2E86C1; border-radius: 5px; }
+    .title { font-size: 24px; color: #FF6B00; font-family: 'Roboto', sans-serif; }
+    .result { font-size: 24px; font-weight: bold; color: #FF6B00; font-family: 'Roboto', sans-serif; }
+    .instructions { font-size: 16px; color: #333333; font-family: 'Roboto', sans-serif; }
+    .stButton>button { background-color: #FF6B00; color: white; border-radius: 8px; padding: 10px; }
+    .stFileUploader { border: 2px dashed #FF6B00; border-radius: 5px; }
+    .spinner { 
+        border: 4px solid #f3f3f3; 
+        border-top: 4px solid #FF6B00; 
+        border-radius: 50%; 
+        width: 30px; 
+        height: 30px; 
+        animation: spin 1s linear infinite; 
+        margin: auto;
+    }
+    @keyframes spin { 
+        0% { transform: rotate(0deg); } 
+        100% { transform: rotate(360deg); } 
+    }
     </style>
 """, unsafe_allow_html=True)
 
 # Логотип и заголовок
-import os
-if os.path.exists("logo.png"):
-    st.write("Файл logo.png найден")
-else:
-    st.error("Файл logo.png НЕ найден")
-st.markdown("""
-    <div class="header-container">
-        <img src="logo.png" class="logo">
-        <div class="title">NevoScan</div>
-    </div>
-""", unsafe_allow_html=True)
-st.markdown('<div class="instructions">Загрузите фото кожи для анализа (JPG или PNG). Убедитесь, что родинка хорошо видна.</div>', unsafe_allow_html=True)
+col1, col2 = st.columns([1, 3])
+with col1:
+    st.image("logo.png", width=100)
+with col2:
+    st.markdown('<h3 style="color: #FF6B00; font-family: Roboto, sans-serif;">NevoScan: ИИ-ассистент для скрининга рака кожи</h3>', unsafe_allow_html=True)
 
+# Разделитель
+st.markdown("---")
+
+# Описание
+st.markdown("""
+NevoScan помогает проводить предварительный скрининг кожных новообразований. 
+Загрузите изображение, и наш ИИ проанализирует его на предмет признаков злокачественности.
+""")
+
+# Инструкция
+st.markdown('<div class="instructions">Загрузите фото кожи для анализа (JPG или PNG). Убедитесь, что родинка хорошо видна.</div>', unsafe_allow_html=True)
 # Определение устройства
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
