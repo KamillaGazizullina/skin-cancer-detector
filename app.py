@@ -25,7 +25,7 @@ st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
     .header-container { display: flex; align-items: center; margin-bottom: 20px; }
-    .logo { width: 250px; height: auto; margin-right: 20px; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; margin-left: -20px; }
+    .logo { width: 250px; height: auto; margin-right: 40px; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; margin-left: -20px; }
     .title { font-size: 24px; color: #FF6B00; font-family: 'Roboto', sans-serif; }
     .result { font-size: 24px; font-weight: bold; color: #FF6B00; font-family: 'Roboto', sans-serif; }
     .instructions { font-size: 16px; color: #333333; font-family: 'Roboto', sans-serif; }
